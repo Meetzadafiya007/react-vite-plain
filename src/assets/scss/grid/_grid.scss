@@ -1,0 +1,36 @@
+.container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+.col {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+
+
+@for $i from 1 through $grid-columns {
+    .col-#{$i} {
+        flex: 0 0 calc(100% / #{$grid-columns} * #{$i});
+        max-width: calc(100% / #{$grid-columns} * #{$i});
+    }
+}
+
+@for $i from 1 through $grid-columns {
+    @each $breakpoint, $width in $breakpoints {
+        .col-#{$breakpoint}-#{$i} {
+            @include respond-to($breakpoint) {
+                flex: 0 0 calc(100% / #{$grid-columns} * #{$i});
+                max-width: calc(100% / #{$grid-columns} * #{$i});
+            }
+        }
+    }
+}
